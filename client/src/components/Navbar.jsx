@@ -1,9 +1,28 @@
 import { useState } from 'react';
 import { useDarkMode } from '../hooks/useDarkMode';
+import LoginModal from './LoginModal';   // ← Add this line
+import SignUpModal from './SignUpModal';   // ← Add this line
+import ForgotPasswordModal from './ForgotPasswordModal';   // ← Add this line
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+
+  const handleSwitchToLogin = () => {
+    setShowSignUpModal(false);
+    setShowLoginModal(true);
+  };
+  const handleSwitchToSignUp = () => {
+    setShowLoginModal(false);
+    setShowSignUpModal(true);
+  };
+  const handleOpenForgotPassword = () => {
+    setShowLoginModal(false);
+    setShowForgotPasswordModal(true);
+  };
 
   return (
     <nav className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
@@ -45,10 +64,16 @@ export default function Navbar() {
 
             {/* Auth Buttons */}
             <div className="flex items-center gap-x-3">
-              <button className="min-w-[110px] bg-navy hover:bg-navy/90 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors">
-                Login
-              </button>
-              <button className="min-w-[110px] border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors">
+            <button 
+              onClick={() => setShowLoginModal(true)}
+              className="min-w-[110px] bg-navy hover:bg-navy/70 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
+            >
+              Login
+            </button>
+              <button
+                onClick={() => setShowSignUpModal(true)}
+                className="min-w-[110px] border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
+              >
                 Sign up
               </button>
             </div>
@@ -76,10 +101,16 @@ export default function Navbar() {
               <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
               
               <div className="flex flex-col gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
-                <button className="min-w-full bg-navy text-white py-3 rounded-xl font-medium">
+                <button 
+                  onClick={() => setShowLoginModal(true)}
+                  className="min-w-full bg-navy text-white py-3 rounded-xl font-medium"
+                >
                   Login
                 </button>
-                <button className="min-w-full border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white py-3 rounded-xl font-medium transition-colors">
+                <button 
+                  onClick={() => setShowSignUpModal(true)}
+                  className="min-w-full border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white py-3 rounded-xl font-medium transition-colors"
+                >
                   Sign up
                 </button>
               </div>
@@ -87,6 +118,25 @@ export default function Navbar() {
           </div>
         )}
       </div>
+      <LoginModal 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)}
+        onSwitchToSignUp={handleSwitchToSignUp}
+        onForgotPassword={handleOpenForgotPassword}   // ← add this
+      />
+      <ForgotPasswordModal 
+        isOpen={showForgotPasswordModal} 
+        onClose={() => setShowForgotPasswordModal(false)}
+        onBackToLogin={() => {
+          setShowForgotPasswordModal(false);
+          setShowLoginModal(true);
+        }}
+      />
+      <SignUpModal 
+        isOpen={showSignUpModal} 
+        onClose={() => setShowSignUpModal(false)}
+        onSwitchToLogin={handleSwitchToLogin}   // ← add this
+      />
     </nav>
   );
 }

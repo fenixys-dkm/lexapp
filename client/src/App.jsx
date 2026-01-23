@@ -3,32 +3,32 @@ import { FileText, Bell, FolderTree } from 'lucide-react';
 
 const people = [
   {
-    name: 'Leslie Alexander',
+    name: 'Lene Hjortshøj',
     role: 'Co-Founder & CEO',
     imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
-    name: 'Michael Foster',
+    name: 'Dennis Krongaard Mikkelsen',
     role: 'Co-Founder & CTO',
     imageUrl: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
-    name: 'Dries Vincent',
+    name: 'Andreas Lyngaa',
     role: 'Head of Regulatory Affairs',
     imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
-    name: 'Lindsay Walton',
+    name: 'Lasse Lund',
     role: 'Head of Product',
     imageUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
-    name: 'Courtney Henry',
+    name: 'Thomas Ferniss',
     role: 'Lead Compliance Analyst',
     imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
-    name: 'Tom Cook',
+    name: 'Herman Hansson',
     role: 'Director of Engineering',
     imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
@@ -41,24 +41,41 @@ function App() {
       <Navbar />
 
       <main>
-        {/* Hero Section */}
+        {/* Hero Section - Fixed Staggered Entrance (No Flash) */}
         <section className="min-h-screen flex items-center bg-zinc-50 dark:bg-zinc-950">
           <div className="max-w-6xl mx-auto px-6 pt-20">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+              
+              {/* Badge */}
+              <div className="inline-flex items-center bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.1s_forwards]">
                 Real-time Legislative Intelligence
               </div>
-              <h1 className="text-[3.75rem] leading-[1.1] font-semibold tracking-tighter text-zinc-900 dark:text-white mb-8">
+
+              {/* Headline */}
+              <h1 className="text-[3.75rem] leading-[1.1] font-semibold tracking-tighter text-zinc-900 dark:text-white mb-8 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.3s_forwards]">
                 Your single gateway to regulatory compliance
               </h1>
-              <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl">
+
+              {/* Description */}
+              <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.5s_forwards]">
                 LexApp extracts structured data directly from official legislative APIs and delivers 
                 focused, actionable legal content and metadata to compliance teams in banking, fintech, 
                 technology, and other highly regulated sectors.
               </p>
+
+              {/* Buttons */}
+              <div className="mt-10 flex gap-4 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.7s_forwards]">
+                <a href="#solutions" className="bg-navy hover:bg-navy/70 text-white px-8 py-4 rounded-2xl font-medium transition-colors">
+                  Explore Solutions
+                </a>
+                <a href="#contact" className="border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-900 dark:text-white px-8 py-4 rounded-2xl font-medium transition-colors">
+                  Request a demo
+                </a>
+              </div>
             </div>
           </div>
         </section>
+
 
         {/* Solutions Section - Tailwind UI Style (Dark) */}
         <section id="solutions" className="overflow-hidden py-24 bg-white dark:bg-zinc-900">
@@ -134,7 +151,7 @@ function App() {
             <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
               
               {/* Large Left Card - Direct API Integration */}
-              <div className="relative lg:row-span-2">
+              <div className="relative lg:row-span-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
                 <div className="absolute inset-px rounded-lg bg-zinc-900 lg:rounded-l-[2rem]" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] lg:rounded-l-[calc(2rem+1px)]">
                   <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -152,7 +169,7 @@ function App() {
               </div>
 
               {/* Top Right Card - Domain-Specific Filtering */}
-              <div className="relative max-lg:row-start-1">
+              <div className="relative max-lg:row-start-1 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
                 <div className="absolute inset-px rounded-lg bg-zinc-900 max-lg:rounded-t-[2rem]" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                   <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -173,7 +190,7 @@ function App() {
               </div>
 
               {/* Bottom Right Card - Metadata & Search */}
-              <div className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
+              <div className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
                 <div className="absolute inset-px rounded-lg bg-zinc-900" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)]">
                   <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -194,7 +211,7 @@ function App() {
               </div>
 
               {/* Large Right Card - Audit-Ready Exports */}
-              <div className="relative lg:row-span-2">
+              <div className="relative lg:row-span-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
                 <div className="absolute inset-px rounded-lg bg-zinc-900 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                   <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -247,7 +264,7 @@ function App() {
                   <div className="flex items-center gap-x-6">
                     <img
                       alt={person.name}
-                      src={person.imageUrl}
+                      src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(person.name)}&backgroundColor=0A2540&textColor=ffffff&fontSize=42`}
                       className="size-16 rounded-full object-cover outline outline-2 -outline-offset-2 outline-zinc-100 dark:outline-zinc-800"
                     />
                     <div>
