@@ -47,17 +47,26 @@ function App() {
             <div className="max-w-3xl">
               
               {/* Badge */}
-              <div className="inline-flex items-center bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-200 text-sm font-medium px-4 py-1.5 rounded-full mb-6 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.1s_forwards]">
+              <div className="text-sm inline-flex items-center bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-200 font-medium px-4 py-1.5 rounded-full mb-6 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.1s_forwards]
+                          sm:text-sm
+                          md:text-sm
+                          lg:text-sm">
                 Real-time Legislative Intelligence
               </div>
 
               {/* Headline */}
-              <h1 className="text-[3.75rem] leading-[1.1] font-semibold tracking-tighter text-zinc-900 dark:text-white mb-8 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.3s_forwards]">
+              <h1 className="text-[3.00rem] leading-[1.1] font-semibold tracking-tighter text-zinc-900 dark:text-white mb-8 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.3s_forwards]
+                            sm:text-[3.00rem]
+                            md:text-[3.75rem]
+                            lg:text-[3.75rem]">
                 Your single gateway to regulatory compliance
               </h1>
 
               {/* Description */}
-              <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.5s_forwards]">
+              <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.5s_forwards]
+                            sm:text-lg
+                            md:text-xl
+                            lg:text-xl">
                 LexApp extracts structured data directly from official legislative APIs and delivers 
                 focused, actionable legal content and metadata to compliance teams in banking, fintech, 
                 technology, and other highly regulated sectors.
@@ -65,10 +74,16 @@ function App() {
 
               {/* Buttons */}
               <div className="mt-10 flex gap-4 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.7s_forwards]">
-                <a href="#solutions" className="bg-navy hover:bg-navy/70 text-white px-8 py-4 rounded-2xl font-medium transition-colors">
+                <a href="#solutions" className="text-sm px-6 py-5 bg-navy hover:bg-navy/70 text-white rounded-2xl font-medium transition-colors
+                                                sm:text-sm sm:px-6 sm:py-5
+                                                md:text-base md:px-8 md:py-5
+                                                lg:text-base lg:px-8 lg:py-5">
                   Explore Solutions
                 </a>
-                <a href="#contact" className="border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-900 dark:text-white px-8 py-4 rounded-2xl font-medium transition-colors">
+                <a href="#contact" className="text-sm px-6 py-5 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-900 dark:text-white rounded-2xl font-medium transition-colors
+                                              sm:text-sm sm:px-6 sm:py-5
+                                              md:text-base md:px-8 md:py-5
+                                              lg:text-base lg:px-8 lg:py-5">
                   Request a demo
                 </a>
               </div>
@@ -105,16 +120,29 @@ function App() {
               {/* Left Content */}
               <div className="lg:pt-4 lg:pr-8">
                 <div className="lg:max-w-lg">
-                  <p className="mt-2 text-4xl font-semibold tracking-tighter text-white sm:text-5xl">
+                  <p className="text-4xl mt-2  font-semibold tracking-tighter text-white
+                                sm:text-4xl
+                                md:text-5xl
+                                lg:text-5xl
+                              ">
                     Stay ahead of regulatory change
                   </p>
-                  <p className="mt-6 text-lg/8 text-zinc-400">
+                  <p className="text-base/7 mt-6 text-zinc-400
+                              sm:text-base/7
+                              md:text-lg/8
+                              lg:text-lg/8">
                     Purpose-built for compliance teams in banking, fintech, and technology companies.
                   </p>
 
-                  <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-zinc-400 lg:max-w-none">
+                  <dl className="text-sm/6 mt-10 max-w-xl space-y-8 text-zinc-400 lg:max-w-none
+                              sm:text-sm/6
+                              md:text-base/7
+                              lg:text-base/7">
                     <div className="relative pl-9">
-                      <div className="absolute left-1 top-1 w-5 h-5 bg-white"></div>
+                      <div className="w-4 h-4 absolute left-1 top-1 bg-white
+                                      sm:w-4 sm:h-4
+                                      md:w-4 md:h-4
+                                      lg:w-5 lg:h-5"></div>
                       <dt className="inline font-semibold text-white">
                         Regulatory Monitoring
                       </dt>
@@ -124,7 +152,10 @@ function App() {
                     </div>
 
                     <div className="relative pl-9">
-                      <div className="absolute left-1 top-1 w-5 h-5 bg-white"></div>
+                      <div className="w-4 h-4 absolute left-1 top-1 bg-white
+                                      sm:w-4 sm:h-4 
+                                      md:w-4 md:h-4
+                                      lg:w-5 lg:h-5"></div>
                       <dt className="inline font-semibold text-white">
                         Daily Intelligence &amp; Alerts
                       </dt>
@@ -134,7 +165,10 @@ function App() {
                     </div>
 
                     <div className="relative pl-9">
-                      <div className="absolute left-1 top-1 w-5 h-5 bg-white"></div>
+                      <div className="w-4 h-4 absolute left-1 top-1 bg-white
+                                      sm:w-4 sm:h-4
+                                      md:w-4 md:h-4
+                                      lg:w-5 lg:h-5"></div>
                       <dt className="inline font-semibold text-white">
                         Structured Navigation
                       </dt>
@@ -164,7 +198,10 @@ function App() {
         {/* Services Section - Bento Grid Style */}
         <section id="services" className="bg-zinc-950 py-24 sm:py-32">
           <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-            <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tighter text-white sm:text-5xl">
+            <p className="text-3xl mx-auto mt-2 max-w-lg text-center font-semibold tracking-tighter text-white
+                          sm:text-3xl
+                          md:text-4xl
+                          lg:text-5xl">
               Comprehensive compliance intelligence
             </p>
 
@@ -174,9 +211,18 @@ function App() {
               <div className="relative lg:row-span-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
                 <div className="absolute inset-px rounded-lg bg-zinc-900 lg:rounded-l-[2rem]" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] lg:rounded-l-[calc(2rem+1px)]">
-                  <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                    <p className="mt-2 text-lg font-medium tracking-tight text-white max-lg:text-center">Direct API Integration</p>
-                    <p className="mt-2 max-w-lg text-sm/6 text-zinc-400 max-lg:text-center">
+                  <div className="px-7 pt-7 pb-0
+                                sm:px-7 sm:pt-7 sm:pb-0 
+                                md:px-8 md:pt-8 md:pb-0
+                                lg:px-10 lg:pt-10 lg:pb-0">
+                    <p className="text-lg/8 mt-2 font-medium tracking-tight text-white max-lg:text-center
+                                sm:text-lg/8
+                                md:text-lg/8
+                                lg:text-lg/8">Direct API Integration</p>
+                    <p className="text-sm/6 mt-2 max-w-lg text-zinc-400 max-lg:text-center
+                              sm:text-sm/6
+                              md:text-sm/6
+                              lg:text-sm/6">
                       Automatic ingestion from official legislative sources across EU, UK, US, and major jurisdictions.
                     </p>
                   </div>
@@ -192,9 +238,18 @@ function App() {
               <div className="relative max-lg:row-start-1 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
                 <div className="absolute inset-px rounded-lg bg-zinc-900 max-lg:rounded-t-[2rem]" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
-                  <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                    <p className="mt-2 text-lg font-medium tracking-tight text-white max-lg:text-center">Domain-Specific Filtering</p>
-                    <p className="mt-2 max-w-lg text-sm/6 text-zinc-400 max-lg:text-center">
+                  <div className="px-7 pt-7 pb-0
+                                sm:px-7 sm:pt-7 sm:pb-0
+                                md:px-8 md:pt-8 md:pb-0
+                                lg:px-10 lg:pt-10 lg:pb-0">
+                    <p className="text-lg/8 mt-2 font-medium tracking-tight text-white max-lg:text-center
+                                sm:text-lg/8
+                                md:text-lg/8
+                                lg:text-lg/8">Domain-Specific Filtering</p>
+                    <p className="text-sm/6 mt-2 max-w-lg text-zinc-400 max-lg:text-center
+                                sm:text-sm/6
+                                md:text-sm/6
+                                lg:text-sm/6">
                       Tailored views for fintech, banking, payments, data protection, AI governance, and cybersecurity.
                     </p>
                   </div>
@@ -267,10 +322,16 @@ function App() {
             
             {/* Left Column - Text */}
             <div className="max-w-xl">
-              <h2 className="text-3xl font-semibold tracking-tighter text-zinc-900 dark:text-white sm:text-4xl">
+              <h2 className="text-3xl font-semibold tracking-tighter text-zinc-900 dark:text-white 
+                            sm:text-3xl
+                            md:text-4xl 
+                            lg:text-4xl">
                 Meet the team
               </h2>
-              <p className="mt-6 text-lg/8 text-zinc-600 dark:text-zinc-400">
+              <p className="text-base/7 mt-6  text-zinc-600 dark:text-zinc-400
+                            sm:text-base/7
+                            md:text-lg/8
+                            lg:text-lg/8">
                 We’re a team of regulatory experts, technologists, and compliance professionals 
                 passionate about simplifying complex legislation for financial institutions and 
                 technology companies.
@@ -306,8 +367,14 @@ function App() {
         <section id="contact" className="py-24 bg-zinc-950 text-white">
           <div className="max-w-2xl mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-semibold mb-4">Ready to simplify regulatory compliance?</h2>
-              <p className="text-zinc-400">
+              <h2 className="text-3xl font-semibold mb-4
+                            sm:text-3xl
+                            md:text-4xl
+                            lg:text-4xl">Ready to simplify regulatory compliance?</h2>
+              <p className="text-base/7 text-zinc-400
+                            sm:text-base/7
+                            md:text-lg/8
+                            lg:text-lg/8">
                 Join leading fintechs, banks, and technology companies already using LexApp
               </p>
             </div>

@@ -68,7 +68,7 @@ html {
 /* Sequential, non-overlapping */
 .hero-particle:nth-child(1) { top: 25%; left: 15%; animation-delay: 1.5s; }
 .hero-particle:nth-child(2) { top: 40%; left: 70%; animation-delay: 3s; }
-.hero-particle:nth-child(3) { top: 65%; left: 20%; animation-delay: 4.5s; }
+.hero-particle:nth-child(3) { top: 75%; left: 20%; animation-delay: 4.5s; }
 .hero-particle:nth-child(4) { top: 10%; left: 10%; animation-delay: 6s; }
 .hero-particle:nth-child(5) { top: 18%; left: 45%; animation-delay: 7.5s; }
 .hero-particle:nth-child(6) { top: 68%; left: 52%; animation-delay: 9s; }
@@ -77,7 +77,7 @@ html {
 
 .hero-particle:nth-child(9) { top: 25%; left: 15%; animation-delay: 13.5s; }
 .hero-particle:nth-child(10) { top: 40%; left: 70%; animation-delay: 15s; }
-.hero-particle:nth-child(11) { top: 65%; left: 20%; animation-delay: 16.5s; }
+.hero-particle:nth-child(11) { top: 75%; left: 20%; animation-delay: 16.5s; }
 .hero-particle:nth-child(12) { top: 10%; left: 10%; animation-delay: 18s; }
 .hero-particle:nth-child(13) { top: 18%; left: 45%; animation-delay: 19.5s; }
 .hero-particle:nth-child(14) { top: 68%; left: 52%; animation-delay: 21s; }
