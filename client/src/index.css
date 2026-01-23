@@ -32,3 +32,89 @@ html {
 .animate-\[fade-in-up_0\.9s_ease-out_0\.1s_forwards\] {
   animation: fade-in-up 0.9s ease-out 0.1s forwards;
 }
+
+
+/* Hero particle animation */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-particle {
+  position: absolute;
+  width: 20vw;
+  height: 20vh;
+  background: rgba(191, 219, 254, 0.3); 
+  border-radius: 0%;
+  /*border: 2px solid rgba(59, 130, 246, 0.3);*/
+  animation: particle-sequence 24s infinite linear;
+  pointer-events: none;
+  opacity: 0;
+
+  /* Text inside the square */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;                    /* ~60% of square size */
+  color: rgba(191, 219, 254, 0.3);                   /* inherits the background color */
+}
+
+.dark .hero-particle {
+  background: transparent;
+  /*border: 2px solid rgba(59, 130, 246, 0.3);*/
+}
+
+
+/* Sequential, non-overlapping */
+.hero-particle:nth-child(1) { top: 25%; left: 15%; animation-delay: 1.5s; }
+.hero-particle:nth-child(2) { top: 40%; left: 70%; animation-delay: 3s; }
+.hero-particle:nth-child(3) { top: 65%; left: 20%; animation-delay: 4.5s; }
+.hero-particle:nth-child(4) { top: 10%; left: 10%; animation-delay: 6s; }
+.hero-particle:nth-child(5) { top: 18%; left: 45%; animation-delay: 7.5s; }
+.hero-particle:nth-child(6) { top: 68%; left: 52%; animation-delay: 9s; }
+.hero-particle:nth-child(7) { top: 48%; left: 10%; animation-delay: 10.5s; }
+.hero-particle:nth-child(8) { top: 32%; left: 58%; animation-delay: 12s; }
+
+.hero-particle:nth-child(9) { top: 25%; left: 15%; animation-delay: 13.5s; }
+.hero-particle:nth-child(10) { top: 40%; left: 70%; animation-delay: 15s; }
+.hero-particle:nth-child(11) { top: 65%; left: 20%; animation-delay: 16.5s; }
+.hero-particle:nth-child(12) { top: 10%; left: 10%; animation-delay: 18s; }
+.hero-particle:nth-child(13) { top: 18%; left: 45%; animation-delay: 19.5s; }
+.hero-particle:nth-child(14) { top: 68%; left: 52%; animation-delay: 21s; }
+.hero-particle:nth-child(15) { top: 48%; left: 10%; animation-delay: 22.5s; }
+.hero-particle:nth-child(16) { top: 32%; left: 58%; animation-delay: 24s; }
+
+/* Short labels (recommended) */
+.hero-particle:nth-child(1)::after { content: 'Regulations'; }
+.hero-particle:nth-child(2)::after { content: 'Directives'; }
+.hero-particle:nth-child(3)::after { content: 'Delegated Acts'; }
+.hero-particle:nth-child(4)::after { content: 'Case Laws'; }
+.hero-particle:nth-child(5)::after { content: 'EurLex'; }
+.hero-particle:nth-child(6)::after { content: 'Official Journal'; }
+.hero-particle:nth-child(7)::after { content: 'Cellar'; }
+.hero-particle:nth-child(8)::after { content: 'Preparatory Documents'; }
+
+.hero-particle:nth-child(9)::after { content: 'Regulatory Technical Standards'; }
+.hero-particle:nth-child(10)::after { content: 'National Transposition'; }
+.hero-particle:nth-child(11)::after { content: 'Delegated Acts'; }
+.hero-particle:nth-child(12)::after { content: 'European Union'; }
+.hero-particle:nth-child(13)::after { content: 'Implementing Technical Standards'; }
+.hero-particle:nth-child(14)::after { content: 'Lawmaking Procedures'; }
+.hero-particle:nth-child(15)::after { content: 'EuroVoc'; }
+.hero-particle:nth-child(16)::after { content: 'ELI'; }
+
+@keyframes particle-sequence {
+  0%    { opacity: 0; transform: scale(0.5); }
+  5%    { opacity: 1; transform: scale(1); }      /* fade in complete */
+  25%   { opacity: 1; transform: scale(1); }      /* stay visible until 25% */
+  30%   { opacity: 0; transform: scale(0.5); }    /* fade out complete */
+  100%  { opacity: 0; transform: scale(0.5); }
+}
+/*
+Total animation duration = 48s
+Number of squares = 8
+Delay between each square = 48s ÷ 8 = 6s ✓ (this is correct)
+
+To have each square visible for exactly 12 seconds:
+Visible fraction = 12s / 48s = 0.25 → 25% of the total animation
+*/

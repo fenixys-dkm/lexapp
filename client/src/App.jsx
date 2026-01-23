@@ -41,13 +41,13 @@ function App() {
       <Navbar />
 
       <main>
-        {/* Hero Section - Fixed Staggered Entrance (No Flash) */}
-        <section className="min-h-screen flex items-center bg-zinc-50 dark:bg-zinc-950">
-          <div className="max-w-6xl mx-auto px-6 pt-20">
+        {/* Hero Section with animated background */}
+        <section className="hero-bg min-h-screen flex items-center bg-zinc-50 dark:bg-zinc-950 relative ">
+          <div className="max-w-6xl mx-auto px-6 pt-20 z-10 relative">
             <div className="max-w-3xl">
               
               {/* Badge */}
-              <div className="inline-flex items-center bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-sm font-medium px-4 py-1.5 rounded-full mb-6 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.1s_forwards]">
+              <div className="inline-flex items-center bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-200 text-sm font-medium px-4 py-1.5 rounded-full mb-6 opacity-0 translate-y-5 animate-[fade-in-up_0.9s_ease-out_0.1s_forwards]">
                 Real-time Legislative Intelligence
               </div>
 
@@ -73,6 +73,26 @@ function App() {
                 </a>
               </div>
             </div>
+          </div>
+          {/* Particle container */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
+            <div className="hero-particle"></div>
           </div>
         </section>
 
