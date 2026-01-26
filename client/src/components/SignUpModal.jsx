@@ -18,14 +18,37 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault(); //Don't refresh page
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
     console.log('Sign up attempt:', formData);
-    // TODO: Connect to Flask /api/auth/register
+    try {
+          const response = await fetch('http://localhost:5000/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: formData.name,
+              email: formData.email,
+              company: formData.company || null, // Optional field
+              password: formData.password,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            alert('Account created successfully! Please log in.');
+            onSwitchToLogin(); // Switch to login modal after success
+          } else {
+            alert(data.error || 'Registration failed. Please try again.');
+          }
+        } catch (error) {
+          console.error('Signup error:', error);
+          alert('Could not connect to the server. Please check if the backend is running.');
+        }
   };
 
   return (
