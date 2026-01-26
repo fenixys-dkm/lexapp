@@ -1,41 +1,31 @@
-from flask import Flask, app
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
-from flask_migrate import Migrate  # New import
+from flask import Flask, app # Flask application
+from flask_cors import CORS # Enable CORS
+from flask_sqlalchemy import SQLAlchemy # Database ORM
+from flask_jwt_extended import JWTManager # JWT for authentication
+from flask_migrate import Migrate # Database migration tool
 
 # Import blueprints
 from .blueprints.auth import auth_bp
 from .blueprints.users import users_bp
-from .blueprints.products import products_bp
 
 
-db = SQLAlchemy()
-jwt = JWTManager()
+db = SQLAlchemy() # Initialize SQLAlchemy
+jwt = JWTManager() # Initialize JWTManager
 migrate = Migrate()  # New: Initialize Migrate
 
-def create_app(config_class='app.config.Config'):
-    app = Flask(__name__)
-    app.config.from_object(config_class)
+def create_app(config_class='app.config.Config'): # Application factory
+    app = Flask(__name__) # Create Flask app instance
+    app.config.from_object(config_class) # Load configuration
 
-    CORS(app)
+    CORS(app) # Enable CORS for all routes
 
-    db.init_app(app)
-    jwt.init_app(app)
-    migrate.init_app(app, db)  # New: Bind Migrate to app and db
+    db.init_app(app) # Bind SQLAlchemy to app
+    jwt.init_app(app) # Bind JWTManager to app
+    migrate.init_app(app, db)  # Bind Migrate to app and db
 
-    from .models import User
+    from .models import User # Ensure models are imported for migrations
 
-    # with app.app_context():
-    #     from .models.user import User   # Register model
-    #     db.create_all()
-
-    app.register_blueprint(auth_bp, url_prefix='/api/auth')
-    app.register_blueprint(users_bp, url_prefix='/api/users')
-    app.register_blueprint(products_bp, url_prefix='/api/products')
-
-    @app.route('/api/health')
-    def health():
-        return {'status': 'ok'}, 200
+    app.register_blueprint(auth_bp, url_prefix='/api/auth') # Register auth blueprint
+    app.register_blueprint(users_bp, url_prefix='/api/users') # Register users blueprint
 
     return app

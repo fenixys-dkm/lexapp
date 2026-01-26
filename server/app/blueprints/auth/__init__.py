@@ -36,6 +36,7 @@ def register():
     print(f"Name     : {name}")
     print(f"Company  : {company or 'Not provided'}")
     print(f"Email    : {email}")
+    
     user = User(name=name, email=email, company=company)
     user.set_password(password)
     db.session.add(user)
