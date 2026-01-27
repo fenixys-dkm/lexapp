@@ -77,7 +77,7 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
             placeholder="John Smith"
             required
             />
@@ -91,7 +91,7 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
             name="company"
             value={formData.company}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition  text-zinc-900 dark:text-white"
             placeholder="Acme Financial"
             />
         </div>
@@ -104,7 +104,7 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition  text-zinc-900 dark:text-white"
             placeholder="john@company.com"
             required
             />
@@ -119,7 +119,7 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+                className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
                 placeholder="••••••••"
                 required
             />
@@ -131,7 +131,7 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+                className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
                 placeholder="••••••••"
                 required
             />
