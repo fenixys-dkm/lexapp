@@ -11,11 +11,37 @@ export default function LoginModal({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password });
-    // TODO: Connect to Flask backend
+
+    console.log('INITIATED handleSubmit /api/auth/login');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.access_token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        console.log('Logged in:', data.user);
+        onClose();
+        // TODO: redirect to dashboard or update global auth state
+        alert('Login successful!');
+      } else {
+        alert(data.error || 'Login failed');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Could not connect to server');
+    }
   };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={onClose}>

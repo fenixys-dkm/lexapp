@@ -7,8 +7,38 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
+    # Lazy imports inside the function to avoid circular import issues
+    from app import db
+    from app.models.user import User
+
     data = request.get_json()
-    return jsonify({'message': 'Logged in', 'token': 'fake-jwt-token'}), 200
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+    
+    email = data.get('email')
+    password = data.get('password')
+
+    # Print to terminal (development only!)
+    print("Login attempt...")
+    print(f"Email    : {email}")
+    print(f"Password : {password}")
+
+
+    user = User.query.filter_by(email=email).first()
+    if user and user.check_password(password):
+        print("Login successful...")
+        access_token = create_access_token(identity=email)
+        return jsonify({
+            'access_token': access_token,
+            'user': {
+                'name': user.name,
+                'email': user.email,
+                'company': user.company
+            }
+        }), 200
+    return jsonify({'error': 'Invalid email or password'}), 401
+
+
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
@@ -32,7 +62,7 @@ def register():
          return jsonify({'error': 'Email already registered'}), 400
 
     # Print to terminal (development only!)
-    print("Comitting new user registration:")
+    print("Registration attempt...")
     print(f"Name     : {name}")
     print(f"Company  : {company or 'Not provided'}")
     print(f"Email    : {email}")
