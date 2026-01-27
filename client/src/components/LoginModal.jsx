@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';   // Add this
 
 export default function LoginModal({ 
   isOpen, 
@@ -6,6 +7,7 @@ export default function LoginModal({
   onSwitchToSignUp,
   onForgotPassword   // ← New prop
 }) {
+  const { login } = useAuth();   // ← Use context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,8 +29,7 @@ export default function LoginModal({
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.access_token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        login(data.access_token, data.user);  // ← Call context login to update global state
         console.log('Logged in:', data.user);
         onClose();
         // TODO: redirect to dashboard or update global auth state

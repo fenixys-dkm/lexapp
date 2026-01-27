@@ -3,6 +3,7 @@ import { useDarkMode } from '../hooks/useDarkMode';
 import LoginModal from './LoginModal';   // ← Add this line
 import SignUpModal from './SignUpModal';   // ← Add this line
 import ForgotPasswordModal from './ForgotPasswordModal';   // ← Add this line
+import { useAuth } from '../context/AuthContext';  // ← Add this
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,8 @@ export default function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+
+  const { user, isAuthenticated, logout } = useAuth();  // ← Use context here
 
   const handleSwitchToLogin = () => {
     setShowSignUpModal(false);
@@ -62,20 +65,34 @@ export default function Navbar() {
               <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
             </div>
 
-            {/* Auth Buttons */}
+            {/* Auth Section - Updated with useAuth */}
             <div className="flex items-center gap-x-3">
-            <button 
-              onClick={() => setShowLoginModal(true)}
-              className="min-w-[110px] bg-navy hover:bg-navy/70 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
-            >
-              Login
-            </button>
-              <button
-                onClick={() => setShowSignUpModal(true)}
-                className="min-w-[110px] border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
-              >
-                Sign up
-              </button>
+              {isAuthenticated ? (
+                <>
+                  <span className="text-sm text-zinc-900 dark:text-white">Welcome, {user.name}</span>
+                  <button 
+                    onClick={logout}
+                    className="min-w-[110px] bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={() => setShowLoginModal(true)}
+                    className="min-w-[110px] bg-navy hover:bg-navy/70 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => setShowSignUpModal(true)}
+                    className="min-w-[110px] border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                  >
+                    Sign up
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
