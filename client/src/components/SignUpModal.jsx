@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';   // ← Use context
 
 export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
     confirmPassword: '',
     company: '',
   });
+  const { login } = useAuth();
 
   if (!isOpen) return null;
 

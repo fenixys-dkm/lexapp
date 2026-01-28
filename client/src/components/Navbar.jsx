@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDarkMode } from '../hooks/useDarkMode';
 import LoginModal from './LoginModal';   // ← Add this line
 import SignUpModal from './SignUpModal';   // ← Add this line
@@ -11,8 +11,11 @@ export default function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);  // ← New state for dropdown
 
   const { user, isAuthenticated, logout } = useAuth();  // ← Use context here
+
+  const dropdownRef = useRef(null);  // ← Add ref for outside click detection
 
   const handleSwitchToLogin = () => {
     setShowSignUpModal(false);
@@ -26,6 +29,24 @@ export default function Navbar() {
     setShowLoginModal(false);
     setShowForgotPasswordModal(true);
   };
+
+  // ← Add effect for handling clicks outside the dropdown
+  useEffect(() => {
+    if (!showDropdown) return;
+
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
+
 
   return (
     <nav className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
@@ -65,18 +86,35 @@ export default function Navbar() {
               <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
             </div>
 
-            {/* Auth Section - Updated with useAuth */}
-            <div className="flex items-center gap-x-3">
+            {/* Auth Section - Updated with Avatar + Dropdown */}
+            <div className="flex items-center gap-x-3 relative">
               {isAuthenticated ? (
-                <>
-                  <span className="text-sm text-zinc-900 dark:text-white">Welcome, {user.name}</span>
+                <div className="relative" ref={dropdownRef}>
                   <button 
-                    onClick={logout}
-                    className="min-w-[110px] bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                    onClick={() => setShowDropdown(!showDropdown)}
+                    className="flex items-center gap-2"
                   >
-                    Logout
-                  </button>
-                </>
+                    <img
+                      src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=0A2540&textColor=ffffff&fontSize=42`}
+                      alt={user.name}
+                      className="size-8 rounded-full object-cover outline outline-2 -outline-offset-2 outline-zinc-100 dark:outline-zinc-800"
+                    />
+                 </button>
+                  {showDropdown && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 rounded-xl shadow-lg py-2 z-10">
+                      <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white">Logged in as {user.name}</p>
+                      <button 
+                        onClick={() => {
+                          logout();
+                          setShowDropdown(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <>
                   <button 
@@ -118,18 +156,42 @@ export default function Navbar() {
               <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
               
               <div className="flex flex-col gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
-                <button 
-                  onClick={() => setShowLoginModal(true)}
-                  className="min-w-full bg-navy text-white py-3 rounded-xl font-medium"
-                >
-                  Login
-                </button>
-                <button 
-                  onClick={() => setShowSignUpModal(true)}
-                  className="min-w-full border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white py-3 rounded-xl font-medium transition-colors"
-                >
-                  Sign up
-                </button>
+                {isAuthenticated ? (
+                  <>
+                    <div className="text-center">
+                      <img
+                        src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=0A2540&textColor=ffffff&fontSize=42`}
+                        alt={user.name}
+                        className="size-12 rounded-full object-cover outline outline-2 -outline-offset-2 outline-zinc-100 dark:outline-zinc-800 mx-auto mb-2"
+                      />
+                      <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white">Logged in as {user.name}</p>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        logout();
+                        setIsOpen(false);
+                      }}
+                      className="min-w-full bg-red-600 text-white py-3 rounded-xl font-medium"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button 
+                      onClick={() => setShowLoginModal(true)}
+                      className="min-w-full bg-navy text-white py-3 rounded-xl font-medium"
+                    >
+                      Login
+                    </button>
+                    <button 
+                      onClick={() => setShowSignUpModal(true)}
+                      className="min-w-full border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white py-3 rounded-xl font-medium transition-colors"
+                    >
+                      Sign up
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
