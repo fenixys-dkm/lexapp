@@ -4,6 +4,7 @@ import LoginModal from './LoginModal';   // ← Add this line
 import SignUpModal from './SignUpModal';   // ← Add this line
 import ForgotPasswordModal from './ForgotPasswordModal';   // ← Add this line
 import { useAuth } from '../context/AuthContext';  // ← Add this
+import { getInitials } from '../utils/getInitials';  // ← Import the helper
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();  // ← Use context here
 
   const dropdownRef = useRef(null);  // ← Add ref for outside click detection
+  const initials = getInitials(user?.name);  // ← Compute initials
 
   const handleSwitchToLogin = () => {
     setShowSignUpModal(false);
@@ -89,26 +91,31 @@ export default function Navbar() {
             {/* Auth Section - Updated with Avatar + Dropdown */}
             <div className="flex items-center gap-x-3 relative">
               {isAuthenticated ? (
-                <div className="relative" ref={dropdownRef}>
+              <div className="relative" ref={dropdownRef}>  {/* ← Attach ref here */}
                   <button 
                     onClick={() => setShowDropdown(!showDropdown)}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 min-w-[110px] bg-navy hover:bg-navy/70 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
                   >
-                    <img
-                      src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=0A2540&textColor=ffffff&fontSize=42`}
-                      alt={user.name}
-                      className="size-8 rounded-full object-cover outline outline-2 -outline-offset-2 outline-zinc-100 dark:outline-zinc-800"
-                    />
-                 </button>
+                    <span className="text-sm text-zinc-900 dark:text-white hidden md:inline">Welcome, {initials}</span> {/* Shows initials on desktop for brevity */}
+                  </button>
                   {showDropdown && (
                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 rounded-xl shadow-lg py-2 z-10">
                       <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white">Logged in as {user.name}</p>
+
+                      <button 
+                        onClick={() => {
+                          setShowDropdown(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm dark:text-gray-300 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors font-medium"
+                      >
+                        Enter App
+                      </button>                      
                       <button 
                         onClick={() => {
                           logout();
                           setShowDropdown(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors"
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors font-medium"
                       >
                         Logout
                       </button>
@@ -159,13 +166,14 @@ export default function Navbar() {
                 {isAuthenticated ? (
                   <>
                     <div className="text-center">
-                      <img
-                        src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}&backgroundColor=0A2540&textColor=ffffff&fontSize=42`}
-                        alt={user.name}
-                        className="size-12 rounded-full object-cover outline outline-2 -outline-offset-2 outline-zinc-100 dark:outline-zinc-800 mx-auto mb-2"
-                      />
                       <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white">Logged in as {user.name}</p>
                     </div>
+                    <button 
+                      //onClick={() => setShowLoginModal(true)}
+                      className="min-w-full bg-navy text-white py-3 rounded-xl font-medium"
+                    >
+                      Enter App
+                    </button>
                     <button 
                       onClick={() => {
                         logout();
