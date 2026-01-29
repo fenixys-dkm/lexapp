@@ -59,13 +59,13 @@ export default function Navbar() {
       setIsOpen(false);
 
       toast.success('Logged out successfully', {
-        position: "top-right",
-        autoClose: 3000,
+        position: "bottom-right",
+        autoClose: 4000,
       });
     } catch (error) {
       console.error('Logout failed:', error);
       toast.error('Failed to log out. Please try again.', {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 4000,
       });
     }

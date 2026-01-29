@@ -40,7 +40,7 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
     e.preventDefault(); //Don't refresh page
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match.', {
-        position: "top-right",
+        position: "bottom-right",
       });
       return;
     }
@@ -62,8 +62,8 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
           if (response.ok) {
             // ✅ Nice success toast
             toast.success('Account created successfully! Please log in.', {
-              position: "top-right",
-              autoClose: 3000,
+              position: "bottom-right",
+              autoClose: 4000,
             });
 
             //clear form before switching
@@ -77,13 +77,13 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
             onSwitchToLogin(); // Switch to login modal after success
           } else {
             toast.error(data.error || 'Registration failed. Please try again.', {
-              position: "top-right",
+              position: "bottom-right",
             });
           }
         } catch (error) {
           console.error('Signup error:', error);
           toast.error('Could not connect to server', {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 4000,
           });
         }

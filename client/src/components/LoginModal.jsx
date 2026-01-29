@@ -46,20 +46,20 @@ export default function LoginModal({
         // TODO: redirect to dashboard or update global auth state
         // ✅ Nice success toast
         toast.success('Login successful!', {
-          position: "top-right",
-          autoClose: 3000,
+          position: "bottom-right",
+          autoClose: 4000,
         });
       } else {
         // ✅ Error toast
         toast.error(data.error || 'Login failed', {
-          position: "top-right",
+          position: "bottom-right",
         });
       }
     } catch (error) {
       console.error(error);
       // ✅ Network error
       toast.error('Could not connect to server', {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 4000,
       });
     }

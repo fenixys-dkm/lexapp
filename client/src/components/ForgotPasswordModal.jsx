@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';   // ← add this (or import once globally)
 
 export default function ForgotPasswordModal({ isOpen, onClose, onBackToLogin }) {
   const [email, setEmail] = useState('');
