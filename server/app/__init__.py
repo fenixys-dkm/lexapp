@@ -1,12 +1,10 @@
-from flask import Flask, app # Flask application
+from flask import Flask # Flask application
 from flask_cors import CORS # Enable CORS
 from flask_sqlalchemy import SQLAlchemy # Database ORM
 from flask_jwt_extended import JWTManager # JWT for authentication
 from flask_migrate import Migrate # Database migration tool
 
-# Import blueprints
-from .blueprints.auth import auth_bp
-from .blueprints.users import users_bp
+
 
 
 db = SQLAlchemy() # Initialize SQLAlchemy
@@ -23,9 +21,13 @@ def create_app(config_class='app.config.Config'): # Application factory
     jwt.init_app(app) # Bind JWTManager to app
     migrate.init_app(app, db)  # Bind Migrate to app and db
 
-    from .models import User # Ensure models are imported for migrations
+    # Import and register blueprints (inside function = safer)
+    from .blueprints.auth import auth_bp
+    app.register_blueprint(auth_bp, url_prefix='/api/auth')# Register auth blueprint
 
-    app.register_blueprint(auth_bp, url_prefix='/api/auth') # Register auth blueprint
-    app.register_blueprint(users_bp, url_prefix='/api/users') # Register users blueprint
+    # Import all models (important for Flask-Migrate to detect them)
+    with app.app_context():
+        from .models import User
+
 
     return app

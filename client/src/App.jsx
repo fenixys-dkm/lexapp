@@ -1,5 +1,4 @@
 import Navbar from './components/Navbar';
-import { FileText, Bell, FolderTree } from 'lucide-react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
