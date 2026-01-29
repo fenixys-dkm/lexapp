@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';   // Add this
+import { toast } from 'react-toastify';           // ← Add this
+import 'react-toastify/dist/ReactToastify.css';  // ← Add this (or import once in main file)
 
 export default function LoginModal({ 
   isOpen, 
@@ -11,8 +13,17 @@ export default function LoginModal({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  if (!isOpen) return null;
 
+  // Clear form whenever the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setEmail('');
+      setPassword('');
+    }
+  }, [isOpen]);
+
+  // Prevents rendering when closed
+  if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,13 +44,24 @@ export default function LoginModal({
         console.log('Logged in:', data.user);
         onClose();
         // TODO: redirect to dashboard or update global auth state
-        alert('Login successful!');
+        // ✅ Nice success toast
+        toast.success('Login successful!', {
+          position: "top-right",
+          autoClose: 3000,
+        });
       } else {
-        alert(data.error || 'Login failed');
+        // ✅ Error toast
+        toast.error(data.error || 'Login failed', {
+          position: "top-right",
+        });
       }
     } catch (error) {
       console.error(error);
-      alert('Could not connect to server');
+      // ✅ Network error
+      toast.error('Could not connect to server', {
+        position: "top-right",
+        autoClose: 4000,
+      });
     }
   };
 
@@ -63,29 +85,32 @@ export default function LoginModal({
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email & Password fields remain the same */}
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Email</label>
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+              Email
+            </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
               placeholder="john@company.com"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Password</label>
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+              Password
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition"
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
               placeholder="••••••••"
               required
             />
           </div>
-
           <button
             type="submit"
             className="w-full bg-navy hover:bg-navy/70 text-white font-medium py-3.5 rounded-2xl transition-colors"

@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';   // ← Use context
+import { toast } from 'react-toastify';           // ← Add this
+import 'react-toastify/dist/ReactToastify.css';  // ← Add this (or import once in main file)
 
 export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
   const [formData, setFormData] = useState({
@@ -10,6 +12,20 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
     company: '',
   });
   const { login } = useAuth();
+
+  // Clear form whenever the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        company: '',
+      });
+    }
+  }, [isOpen]);
+
 
   if (!isOpen) return null;
 
@@ -23,7 +39,9 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault(); //Don't refresh page
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      toast.error('Passwords do not match.', {
+        position: "top-right",
+      });
       return;
     }
     console.log('Sign up attempt:', formData);
@@ -42,14 +60,32 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
           const data = await response.json();
 
           if (response.ok) {
-            alert('Account created successfully! Please log in.');
+            // ✅ Nice success toast
+            toast.success('Account created successfully! Please log in.', {
+              position: "top-right",
+              autoClose: 3000,
+            });
+
+            //clear form before switching
+            setFormData({
+              name: '',
+              email: '',
+              password: '',
+              confirmPassword: '',
+              company: '',
+            });
             onSwitchToLogin(); // Switch to login modal after success
           } else {
-            alert(data.error || 'Registration failed. Please try again.');
+            toast.error(data.error || 'Registration failed. Please try again.', {
+              position: "top-right",
+            });
           }
         } catch (error) {
           console.error('Signup error:', error);
-          alert('Could not connect to the server. Please check if the backend is running.');
+          toast.error('Could not connect to server', {
+            position: "top-right",
+            autoClose: 4000,
+          });
         }
   };
 

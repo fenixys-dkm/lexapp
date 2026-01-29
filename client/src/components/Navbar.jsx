@@ -5,6 +5,9 @@ import SignUpModal from './SignUpModal';   // ← Add this line
 import ForgotPasswordModal from './ForgotPasswordModal';   // ← Add this line
 import { useAuth } from '../context/AuthContext';  // ← Add this
 import { getInitials } from '../utils/getInitials';  // ← Import the helper
+import { toast } from 'react-toastify';           // ← Add this
+import 'react-toastify/dist/ReactToastify.css';  // ← Add this (or import once in main file)
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +52,24 @@ export default function Navbar() {
     };
   }, [showDropdown]);
 
+  const handleLogout = async () => {     // ← make it async if needed
+    try {
+      await logout();                    // if your logout is async (e.g. calls server)
+      setShowDropdown(false);
+      setIsOpen(false);
+
+      toast.success('Logged out successfully', {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      console.error('Logout failed:', error);
+      toast.error('Failed to log out. Please try again.', {
+        position: "top-right",
+        autoClose: 4000,
+      });
+    }
+  };
 
   return (
     <nav className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
@@ -111,10 +132,7 @@ export default function Navbar() {
                         Enter App
                       </button>                      
                       <button 
-                        onClick={() => {
-                          logout();
-                          setShowDropdown(false);
-                        }}
+                        onClick={handleLogout}   // ← changed
                         className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors font-medium"
                       >
                         Logout
@@ -175,10 +193,7 @@ export default function Navbar() {
                       Enter App
                     </button>
                     <button 
-                      onClick={() => {
-                        logout();
-                        setIsOpen(false);
-                      }}
+                      onClick={handleLogout}   // ← changed
                       className="min-w-full bg-red-600 text-white py-3 rounded-xl font-medium"
                     >
                       Logout

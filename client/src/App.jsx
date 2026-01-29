@@ -1,5 +1,8 @@
 import Navbar from './components/Navbar';
 import { FileText, Bell, FolderTree } from 'lucide-react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const people = [
   {
@@ -441,6 +444,24 @@ function App() {
           © 2026 LexApp. All rights reserved.
         </div>
       </footer>
+
+      {/* ← Add this once at the end */}
+      <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        //theme={isDarkMode ? "dark" : "light"}
+        //theme="colored"          // Looks great with dark mode
+        // theme="dark"          // or use this if you prefer pure dark
+      />
+
     </>
   );
 }

@@ -118,3 +118,23 @@ Delay between each square = 48s ÷ 8 = 6s ✓ (this is correct)
 To have each square visible for exactly 12 seconds:
 Visible fraction = 12s / 48s = 0.25 → 25% of the total animation
 */
+
+/* Autofill Styles - Light Mode */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #f4f4f5 inset !important; /* zinc-50 */
+  -webkit-text-fill-color: #18181b !important;             /* zinc-900 */
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* Autofill Styles - Dark Mode */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #27272a inset !important; /* zinc-800 */
+  -webkit-text-fill-color: #f4f4f5 !important;             /* zinc-100 */
+  transition: background-color 5000s ease-in-out 0s !important;
+}
