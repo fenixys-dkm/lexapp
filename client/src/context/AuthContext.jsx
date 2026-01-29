@@ -1,86 +1,75 @@
-import { createContext, useContext, useReducer, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import api from '../utils/api';
 
 const AuthContext = createContext();
 
-const initialState = {
-  user: null,
-  token: null,
-  isAuthenticated: false,
-  loading: true,
-};
+export const useAuth = () => useContext(AuthContext);
 
-const authReducer = (state, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      return {
-        ...state,
-        user: action.payload.user,
-        token: action.payload.token,
-        isAuthenticated: true,
-        loading: false,
-      };
-    case 'LOGOUT':
-      return {
-        ...initialState,
-        loading: false,
-      };
-    case 'SET_LOADING':
-      return { ...state, loading: action.payload };
-    default:
-      return state;
-  }
-};
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-export function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(authReducer, initialState);
-
-  // Load auth state from localStorage on app start
+  // Load token & validate on app start
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userStr = localStorage.getItem('user');
-
-    if (token && userStr) {
-      try {
-        const user = JSON.parse(userStr);
-        dispatch({
-          type: 'LOGIN',
-          payload: { token, user },
-        });
-      } catch (error) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        dispatch({ type: 'SET_LOADING', payload: false });
-      }
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      api.get('/me')
+        .then((res) => {
+          setUser(res.data);
+          setIsAuthenticated(true);
+        })
+        .catch(() => {
+          localStorage.removeItem('access_token');
+          setIsAuthenticated(false);
+        })
+        .finally(() => setLoading(false));
     } else {
-      dispatch({ type: 'SET_LOADING', payload: false });
+      setLoading(false);
     }
   }, []);
 
-  const login = (token, user) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    dispatch({ type: 'LOGIN', payload: { token, user } });
+  const register = async (name, email, company = '', password) => {
+    const res = await api.post('/register', {
+      name,
+      email,
+      company,
+      password,
+    });
+
+    // Auto-login after successful registration (best UX)
+    const user = await login(email, password);
+    return user;
+  };
+
+  const login = async (email, password) => {
+    const res = await api.post('/login', { email, password });
+    const { access_token, user } = res.data;
+
+    localStorage.setItem('access_token', access_token);
+    setUser(user);
+    setIsAuthenticated(true);
+    return user;
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    dispatch({ type: 'LOGOUT' });
+    localStorage.removeItem('access_token');
+    setUser(null);
+    setIsAuthenticated(false);
   };
 
   const value = {
-    ...state,
+    user,
+    isAuthenticated,
+    loading,
     login,
+    register,     // ← Add this
     logout,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };

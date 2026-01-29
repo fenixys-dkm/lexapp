@@ -1,6 +1,6 @@
 from unicodedata import name
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 # from werkzeug.exceptions import BadRequest
 
 auth_bp = Blueprint('auth', __name__)
@@ -73,3 +73,16 @@ def register():
     db.session.commit()
 
     return jsonify({'message': 'Account created successfully'}), 201
+
+
+@auth_bp.route('/me', methods=['GET'])
+@jwt_required()
+def get_current_user():
+    from app import db
+    from app.models.user import User
+
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    return jsonify(user.to_dict()), 200

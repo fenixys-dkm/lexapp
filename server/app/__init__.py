@@ -3,7 +3,7 @@ from flask_cors import CORS # Enable CORS
 from flask_sqlalchemy import SQLAlchemy # Database ORM
 from flask_jwt_extended import JWTManager # JWT for authentication
 from flask_migrate import Migrate # Database migration tool
-
+import os
 
 
 
@@ -15,7 +15,17 @@ def create_app(config_class='app.config.Config'): # Application factory
     app = Flask(__name__) # Create Flask app instance
     app.config.from_object(config_class) # Load configuration
 
-    CORS(app) # Enable CORS for all routes
+# Replace this:
+# CORS(app) # Enable CORS for all routes
+
+
+    CORS(
+        app,
+        origins=os.environ.get("CORS_ORIGINS", "http://localhost:5173").split(","),
+        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization"],
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    )
 
     db.init_app(app) # Bind SQLAlchemy to app
     jwt.init_app(app) # Bind JWTManager to app

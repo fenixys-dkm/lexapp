@@ -1,92 +1,93 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';   // ← Use context
-import { toast } from 'react-toastify';           // ← Add this
-import 'react-toastify/dist/ReactToastify.css';  // ← Add this (or import once in main file)
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    company: '',
-  });
-  const { login } = useAuth();
+export default function SignUpModal({ 
+  isOpen, 
+  onClose, 
+  onSwitchToLogin 
+}) {
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-  // Clear form whenever the modal opens
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
   useEffect(() => {
     if (isOpen) {
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        company: '',
-      });
+      setName('');
+      setEmail('');
+      setCompany('');
+      setPassword('');
+      setConfirmPassword('');
+      setError('');
     }
   }, [isOpen]);
 
-
   if (!isOpen) return null;
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleSubmit = async (e) => {
-    e.preventDefault(); //Don't refresh page
-    if (formData.password !== formData.confirmPassword) {
-      toast.error('Passwords do not match.', {
-        position: "bottom-right",
-      });
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      setIsLoading(false);
       return;
     }
-    console.log('Sign up attempt:', formData);
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-          const response = await fetch('http://localhost:5000/api/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: formData.name,
-              email: formData.email,
-              company: formData.company || null, // Optional field
-              password: formData.password,
-            }),
-          });
+      const user = await register(name, email, company, password);
 
-          const data = await response.json();
+      toast.success('Account created successfully! Welcome to LexApp.', {
+        position: "bottom-right",
+        autoClose: 4000,
+      });
 
-          if (response.ok) {
-            // ✅ Nice success toast
-            toast.success('Account created successfully! Please log in.', {
-              position: "bottom-right",
-              autoClose: 4000,
-            });
+      onClose();
+      //navigate('/dashboard');
+    } catch (err) {
+      console.error('Registration error:', err);
 
-            //clear form before switching
-            setFormData({
-              name: '',
-              email: '',
-              password: '',
-              confirmPassword: '',
-              company: '',
-            });
-            onSwitchToLogin(); // Switch to login modal after success
-          } else {
-            toast.error(data.error || 'Registration failed. Please try again.', {
-              position: "bottom-right",
-            });
-          }
-        } catch (error) {
-          console.error('Signup error:', error);
-          toast.error('Could not connect to server', {
-            position: "bottom-right",
-            autoClose: 4000,
-          });
+      let message = 'Registration failed. Please try again.';
+
+      if (err.response) {
+        const status = err.response.status;
+        const serverMsg = err.response.data?.error;
+
+        if (status === 400) {
+          message = serverMsg || 'Invalid input. Please check your details.';
+        } else if (status === 409 || serverMsg?.toLowerCase().includes('already')) {
+          message = 'An account with this email already exists.';
+        } else if (status >= 500) {
+          message = 'Server error. Please try again later.';
+        } else {
+          message = serverMsg || `Error: ${status}`;
         }
+      } else if (err.request) {
+        message = 'Cannot connect to server. Is the backend running?';
+      } else {
+        message = err.message || 'An unexpected error occurred';
+      }
+
+      setError(message);
+      toast.error(message, { position: "bottom-right", autoClose: 6000 });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -95,103 +96,106 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
         className="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl w-full max-w-md p-8 relative" 
         onClick={e => e.stopPropagation()}
       >
-        <button 
-          onClick={onClose}
-          className="absolute top-6 right-6 text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 text-2xl"
-        >
-          ✕
-        </button>
+        <button onClick={onClose} className="absolute top-6 right-6 text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 text-2xl">✕</button>
 
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white mb-2">Create your account</h2>
-        <p className="text-zinc-600 dark:text-zinc-400 mb-8">Start your free trial of LexApp</p>
+        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-white mb-2">Create account</h2>
+        <p className="text-zinc-600 dark:text-zinc-400 mb-8">Join LexApp to simplify regulatory compliance</p>
+
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-2xl text-red-700 dark:text-red-400 text-sm">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-        
-        {/* Full Name - full width */}
-        <div>
+          <div>
             <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Full Name</label>
             <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
-            placeholder="John Smith"
-            required
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy dark:text-white"
+              placeholder="John Smith"
+              required
+              disabled={isLoading}
             />
-        </div>
+          </div>
 
-        {/* Company Name - full width */}
-        <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Company Name</label>
-            <input
-            type="text"
-            name="company"
-            value={formData.company}
-            onChange={handleChange}
-            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition  text-zinc-900 dark:text-white"
-            placeholder="Acme Financial"
-            />
-        </div>
-
-        {/* Work Email - full width */}
-        <div>
+          <div>
             <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Work Email</label>
             <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition  text-zinc-900 dark:text-white"
-            placeholder="john@company.com"
-            required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy dark:text-white"
+              placeholder="john@company.com"
+              required
+              disabled={isLoading}
             />
-        </div>
+          </div>
 
-        {/* Password fields side by side */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
+          <div>
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Company (optional)</label>
+            <input
+              type="text"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy dark:text-white"
+              placeholder="Acme Financial"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div>
             <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Password</label>
             <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
-                placeholder="••••••••"
-                required
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy dark:text-white"
+              placeholder="••••••••"
+              required
+              disabled={isLoading}
             />
-            </div>
-            <div>
+          </div>
+
+          <div>
             <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Confirm Password</label>
             <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy focus:border-transparent transition text-zinc-900 dark:text-white"
-                placeholder="••••••••"
-                required
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-navy dark:text-white"
+              placeholder="••••••••"
+              required
+              disabled={isLoading}
             />
-            </div>
-        </div>
+          </div>
 
-        <button
+          <button
             type="submit"
-            className="w-full bg-navy hover:bg-navy/90 text-white font-medium py-3.5 rounded-2xl transition-colors mt-2"
-        >
-            Create Account
-        </button>
+            disabled={isLoading}
+            className="w-full bg-navy hover:bg-navy/90 disabled:bg-navy/60 text-white font-medium py-3.5 rounded-2xl transition-colors flex items-center justify-center"
+          >
+            {isLoading ? (
+              <>
+                <span className="animate-spin mr-2">⟳</span>
+                Creating account...
+              </>
+            ) : (
+              'Create account'
+            )}
+          </button>
         </form>
 
-        <div className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
-        Already have an account?{' '}
-        <button 
-            onClick={onSwitchToLogin}   // ← make it functional
-            className="text-blue-400 hover:text-blue-300 dark:text-blue-400 hover:underline transition-colors"
-        >
+        <div className="mt-8 text-center text-sm text-zinc-500">
+          Already have an account?{' '}
+          <button 
+            onClick={onSwitchToLogin}
+            className="text-blue-500 hover:text-blue-600 hover:underline font-medium"
+          >
             Sign in
-        </button>
+          </button>
         </div>
       </div>
     </div>
