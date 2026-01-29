@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';   // ← Add useLocation
 import { 
-  Home, FileText, Bell, BarChart3, Settings, LogOut, X 
+  Home, FileText, Bell, Layers, Search, BarChart3, Settings, LogOut, X, BookOpen 
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Sun, Moon } from 'lucide-react';
@@ -14,9 +14,10 @@ export default function Sidebar({ isOpen, onClose }) {
 
   const navItems = [
     { name: 'Dashboard', icon: Home, path: '/dashboard' },
-    { name: 'Regulations', icon: FileText, path: '/dashboard/regulations' },
-    { name: 'Alerts', icon: Bell, path: '/dashboard/alerts' },
-    { name: 'Reports', icon: BarChart3, path: '/dashboard/reports' },
+    { name: 'Legal Domain', icon: Layers, path: '/dashboard/legal_domain' },
+    { name: 'Legislation Hub', icon: Search, path: '/dashboard/legislation_hub' },
+    { name: 'Notifications', icon: Bell, path: '/dashboard/notifications' },
+    { name: 'Resources', icon: BookOpen, path: '/dashboard/resources' },
     { name: 'Settings', icon: Settings, path: '/dashboard/settings' },
   ];
 

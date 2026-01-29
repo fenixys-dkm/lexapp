@@ -1,7 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Dashboard from './pages/Dashboard'; // ← create this next
+import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+
+// Dashboard sub-pages
+import DashboardHome from './pages/dashboard/DashboardHome';
+import LegalDomain from './pages/dashboard/LegalDomain';
+import LegislationHub from './pages/dashboard/LegislationHub';
+import Notifications from './pages/dashboard/Notifications';
+import Resources from './pages/dashboard/Resources';
+import Settings from './pages/dashboard/Settings';
+
+// Modals
 import LoginModal from './components/LoginModal';
 import SignUpModal from './components/SignUpModal';
 import ForgotPasswordModal from './components/ForgotPasswordModal';
@@ -13,7 +23,7 @@ function App() {
         {/* Public landing page */}
         <Route path="/" element={<Home />} />
 
-        {/* Protected dashboard */}
+        {/* Protected Dashboard with nested routes */}
         <Route
           path="/dashboard"
           element={
@@ -21,13 +31,20 @@ function App() {
               <Dashboard />
             </ProtectedRoute>
           }
-        />
+        >
+          {/* Default dashboard home */}
+          <Route index element={<DashboardHome />} />
 
-        {/* Add more protected pages later */}
-        {/* <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
+          {/* Sub-pages */}
+          <Route path="legal_domain" element={<LegalDomain />} />
+          <Route path="legislation_hub" element={<LegislationHub />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="resources" element={<Resources />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
       </Routes>
 
-      {/* Global modals - always visible */}
+      {/* Global modals */}
       <LoginModal />
       <SignUpModal />
       <ForgotPasswordModal />
