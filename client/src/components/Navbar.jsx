@@ -1,41 +1,42 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDarkMode } from '../hooks/useDarkMode';
-import LoginModal from './LoginModal';   // ← Add this line
-import SignUpModal from './SignUpModal';   // ← Add this line
-import ForgotPasswordModal from './ForgotPasswordModal';   // ← Add this line
-import { useAuth } from '../context/AuthContext';  // ← Add this
-import { getInitials } from '../utils/getInitials';  // ← Import the helper
-import { toast } from 'react-toastify';           // ← Add this
-import 'react-toastify/dist/ReactToastify.css';  // ← Add this (or import once in main file)
-
+import LoginModal from './LoginModal';
+import SignUpModal from './SignUpModal';
+import ForgotPasswordModal from './ForgotPasswordModal';
+import { useAuth } from '../context/AuthContext';
+import { getInitials } from '../utils/getInitials';
+import { toast } from 'react-toastify';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);  // ← New state for dropdown
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  const { user, isAuthenticated, logout } = useAuth();  // ← Use context here
-
-  const dropdownRef = useRef(null);  // ← Add ref for outside click detection
-  const initials = getInitials(user?.name);  // ← Compute initials
+  const { user, isAuthenticated, logout } = useAuth();
+  const dropdownRef = useRef(null);
+  const initials = getInitials(user?.name);
 
   const handleSwitchToLogin = () => {
     setShowSignUpModal(false);
     setShowLoginModal(true);
   };
+
   const handleSwitchToSignUp = () => {
     setShowLoginModal(false);
     setShowSignUpModal(true);
   };
+
   const handleOpenForgotPassword = () => {
     setShowLoginModal(false);
     setShowForgotPasswordModal(true);
   };
 
-  // ← Add effect for handling clicks outside the dropdown
+  // Close dropdown when clicking outside
   useEffect(() => {
     if (!showDropdown) return;
 
@@ -46,15 +47,12 @@ export default function Navbar() {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showDropdown]);
 
-  const handleLogout = async () => {     // ← make it async if needed
+  const handleLogout = async () => {
     try {
-      await logout();                    // if your logout is async (e.g. calls server)
+      await logout();
       setShowDropdown(false);
       setIsOpen(false);
 
@@ -79,7 +77,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           
           {/* Logo */}
-          <a href="#" className="flex items-center gap-x-3 group">
+          <a href="/" className="flex items-center gap-x-3 group">
             <div className="flex-shrink-0">
               <svg 
                 width="32" 
@@ -109,30 +107,35 @@ export default function Navbar() {
               <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</a>
             </div>
 
-            {/* Auth Section - Updated with Avatar + Dropdown */}
+            {/* Auth Section */}
             <div className="flex items-center gap-x-3 relative">
               {isAuthenticated ? (
-              <div className="relative" ref={dropdownRef}>  {/* ← Attach ref here */}
+                <div className="relative" ref={dropdownRef}>
                   <button 
                     onClick={() => setShowDropdown(!showDropdown)}
                     className="flex items-center gap-2 min-w-[110px] bg-navy hover:bg-navy/70 text-white px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
                   >
-                    <span className="text-sm text-zinc-900 dark:text-white hidden md:inline">Welcome, {initials}</span> {/* Shows initials on desktop for brevity */}
+                    <span className="hidden md:inline">Welcome, {initials}</span>
                   </button>
+
                   {showDropdown && (
                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-800 rounded-xl shadow-lg py-2 z-10">
-                      <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white">Logged in as {user.name}</p>
+                      <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white border-b border-zinc-100 dark:border-zinc-700">
+                        Logged in as {user?.name}
+                      </p>
 
                       <button 
                         onClick={() => {
                           setShowDropdown(false);
+                          navigate('/dashboard');
                         }}
                         className="w-full text-left px-4 py-2 text-sm dark:text-gray-300 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors font-medium"
                       >
                         Enter App
                       </button>                      
+
                       <button 
-                        onClick={handleLogout}   // ← changed
+                        onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors font-medium"
                       >
                         Logout
@@ -159,7 +162,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Controls */}
+          {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-x-3">
             <button 
               className="text-3xl text-zinc-900 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -184,16 +187,19 @@ export default function Navbar() {
                 {isAuthenticated ? (
                   <>
                     <div className="text-center">
-                      <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white">Logged in as {user.name}</p>
+                      <p className="px-4 py-2 text-sm text-zinc-900 dark:text-white">Logged in as {user?.name}</p>
                     </div>
                     <button 
-                      //onClick={() => setShowLoginModal(true)}
+                      onClick={() => {
+                        setIsOpen(false);
+                        navigate('/dashboard');
+                      }}
                       className="min-w-full bg-navy text-white py-3 rounded-xl font-medium"
                     >
                       Enter App
                     </button>
                     <button 
-                      onClick={handleLogout}   // ← changed
+                      onClick={handleLogout}
                       className="min-w-full bg-red-600 text-white py-3 rounded-xl font-medium"
                     >
                       Logout
@@ -220,11 +226,18 @@ export default function Navbar() {
           </div>
         )}
       </div>
+
+      {/* Modals */}
       <LoginModal 
         isOpen={showLoginModal} 
         onClose={() => setShowLoginModal(false)}
         onSwitchToSignUp={handleSwitchToSignUp}
-        onForgotPassword={handleOpenForgotPassword}   // ← add this
+        onForgotPassword={handleOpenForgotPassword}
+      />
+      <SignUpModal 
+        isOpen={showSignUpModal} 
+        onClose={() => setShowSignUpModal(false)}
+        onSwitchToLogin={handleSwitchToLogin}
       />
       <ForgotPasswordModal 
         isOpen={showForgotPasswordModal} 
@@ -234,11 +247,7 @@ export default function Navbar() {
           setShowLoginModal(true);
         }}
       />
-      <SignUpModal 
-        isOpen={showSignUpModal} 
-        onClose={() => setShowSignUpModal(false)}
-        onSwitchToLogin={handleSwitchToLogin}   // ← add this
-      />
+      
     </nav>
   );
 }
