@@ -3,11 +3,14 @@ import {
   Home, FileText, Bell, BarChart3, Settings, LogOut, X 
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { Sun, Moon } from 'lucide-react';
+import { useDarkMode } from '../hooks/useDarkMode';   // ← Add this import
 
 export default function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
   const location = useLocation();        // ← Add this line
   const { user, logout } = useAuth();
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   const navItems = [
     { name: 'Dashboard', icon: Home, path: '/dashboard' },
@@ -85,6 +88,23 @@ export default function Sidebar({ isOpen, onClose }) {
                 <div className="font-medium text-zinc-900 dark:text-white truncate">{user?.name}</div>
                 <div className="text-zinc-500 dark:text-zinc-400 text-sm truncate">{user?.email}</div>
               </div>
+            </div>
+
+            {/* Dark Mode Toggle */}
+            <div className="mt-4 flex items-center justify-between px-1 py-1">
+            <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                {darkMode ? <Moon size={18} /> : <Sun size={18} />}
+                <span>Dark mode</span>
+            </div>
+            <button
+                onClick={toggleDarkMode}
+                className="relative w-11 h-6 bg-zinc-200 dark:bg-zinc-700 rounded-full transition-colors"
+            >
+                <div
+                className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-all duration-200 
+                    ${darkMode ? 'translate-x-5 bg-amber-500' : ''}`}
+                />
+            </button>
             </div>
 
             <button

@@ -4,7 +4,39 @@ import Navbar from '../components/Navbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const people = [ /* ... your entire people array ... */ ];
+const people = [
+  {
+    name: 'Lene Hjortshøj',
+    role: 'Co-Founder & CEO',
+    imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Dennis Krongaard Mikkelsen',
+    role: 'Co-Founder & CTO',
+    imageUrl: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Andreas Lyngaa',
+    role: 'Head of Regulatory Affairs',
+    imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Lasse Lund',
+    role: 'Head of Product',
+    imageUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Thomas Ferniss',
+    role: 'Lead Compliance Analyst',
+    imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    name: 'Herman Hansson',
+    role: 'Director of Engineering',
+    imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+];
+
 
 function Home() {
   return (
@@ -51,7 +83,7 @@ function Home() {
                                                 lg:text-base lg:px-8 lg:py-5">
                   Explore Solutions
                 </a>
-                <a href="#contact" className="text-sm px-6 py-5 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-900 dark:text-white rounded-2xl font-medium transition-colors
+                <a href="#contact" className="text-sm px-6 py-5 border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-900 dark:text-white rounded-2xl font-medium transition-colors
                                               sm:text-sm sm:px-6 sm:py-5
                                               md:text-base md:px-8 md:py-5
                                               lg:text-base lg:px-8 lg:py-5">
@@ -84,37 +116,37 @@ function Home() {
 
 
         {/* Solutions Section - Tailwind UI Style (Dark) */}
-        <section id="solutions" className="overflow-hidden py-24 bg-white dark:bg-zinc-900">
+        <section id="solutions" className="overflow-hidden py-24 bg-white  text-zinc-900  dark:bg-zinc-900 dark:text-white">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
 
               {/* Left Content */}
               <div className="lg:pt-4 lg:pr-8">
                 <div className="lg:max-w-lg">
-                  <p className="text-4xl mt-2  font-semibold tracking-tighter text-white
+                  <p className="text-4xl mt-2  font-semibold tracking-tighter
                                 sm:text-4xl
                                 md:text-5xl
                                 lg:text-5xl
                               ">
                     Stay ahead of regulatory change
                   </p>
-                  <p className="text-base/7 mt-6 text-zinc-400
+                  <p className="text-base/7 mt-6 text-zinc-600 dark:text-zinc-400
                               sm:text-base/7
                               md:text-lg/8
                               lg:text-lg/8">
                     Purpose-built for compliance teams in banking, fintech, and technology companies.
                   </p>
 
-                  <dl className="text-sm/6 mt-10 max-w-xl space-y-8 text-zinc-400 lg:max-w-none
+                  <dl className="text-sm/6 mt-10 max-w-xl space-y-8 text-zinc-600 dark:text-zinc-400 lg:max-w-none
                               sm:text-sm/6
                               md:text-base/7
                               lg:text-base/7">
                     <div className="relative pl-9">
-                      <div className="w-4 h-4 absolute left-1 top-1 bg-white
+                      <div className="w-4 h-4 absolute left-1 top-1 bg-zinc-900 dark:bg-white
                                       sm:w-4 sm:h-4
                                       md:w-4 md:h-4
                                       lg:w-5 lg:h-5"></div>
-                      <dt className="inline font-semibold text-white">
+                      <dt className="inline font-semibold  text-zinc-900 dark:text-white">
                         Regulatory Monitoring
                       </dt>
                       <dd className="inline pl-2">
@@ -123,11 +155,11 @@ function Home() {
                     </div>
 
                     <div className="relative pl-9">
-                      <div className="w-4 h-4 absolute left-1 top-1 bg-white
+                      <div className="w-4 h-4 absolute left-1 top-1 bg-zinc-900 dark:bg-white
                                       sm:w-4 sm:h-4 
                                       md:w-4 md:h-4
                                       lg:w-5 lg:h-5"></div>
-                      <dt className="inline font-semibold text-white">
+                      <dt className="inline font-semibold text-zinc-900 dark:text-white">
                         Daily Intelligence &amp; Alerts
                       </dt>
                       <dd className="inline pl-2">
@@ -136,11 +168,11 @@ function Home() {
                     </div>
 
                     <div className="relative pl-9">
-                      <div className="w-4 h-4 absolute left-1 top-1 bg-white
+                      <div className="w-4 h-4 absolute left-1 top-1 bg-zinc-900 dark:bg-white
                                       sm:w-4 sm:h-4
                                       md:w-4 md:h-4
                                       lg:w-5 lg:h-5"></div>
-                      <dt className="inline font-semibold text-white">
+                      <dt className="inline font-semibold text-zinc-900 dark:text-white">
                         Structured Navigation
                       </dt>
                       <dd className="inline pl-2">
@@ -167,9 +199,9 @@ function Home() {
         </section>
 
         {/* Services Section - Bento Grid Style */}
-        <section id="services" className="bg-zinc-950 py-24 sm:py-32">
+        <section id="services" className="bg-zinc-50 dark:bg-zinc-950 py-24 sm:py-32">
           <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-            <p className="text-3xl mx-auto mt-2 max-w-lg text-center font-semibold tracking-tighter text-white
+            <p className="text-3xl mx-auto mt-2 max-w-lg text-center font-semibold tracking-tighter text-zinc-900 dark:text-white
                           sm:text-3xl
                           md:text-4xl
                           lg:text-5xl">
@@ -180,17 +212,17 @@ function Home() {
               
               {/* Large Left Card - Direct API Integration */}
               <div className="relative lg:row-span-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
-                <div className="absolute inset-px rounded-lg bg-zinc-900 lg:rounded-l-[2rem]" />
+                <div className="absolute inset-px rounded-lg bg-zinc-200 dark:bg-zinc-900 lg:rounded-l-[2rem]" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] lg:rounded-l-[calc(2rem+1px)]">
                   <div className="px-7 pt-7 pb-0
                                 sm:px-7 sm:pt-7 sm:pb-0 
                                 md:px-8 md:pt-8 md:pb-0
                                 lg:px-10 lg:pt-10 lg:pb-0">
-                    <p className="text-lg/8 mt-2 font-medium tracking-tight text-white max-lg:text-center
+                    <p className="text-lg/8 mt-2 font-medium tracking-tight text-zinc-900 dark:text-white max-lg:text-center
                                 sm:text-lg/8
                                 md:text-lg/8
                                 lg:text-lg/8">Direct API Integration</p>
-                    <p className="text-sm/6 mt-2 max-w-lg text-zinc-400 max-lg:text-center
+                    <p className="text-sm/6 mt-2 max-w-lg dark:text-zinc-400 max-lg:text-center
                               sm:text-sm/6
                               md:text-sm/6
                               lg:text-sm/6">
@@ -198,7 +230,7 @@ function Home() {
                     </p>
                   </div>
                   <div className="relative min-h-[280px] w-full grow max-lg:mx-auto max-lg:max-w-sm">
-                    <div className="absolute inset-x-8 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-zinc-700 bg-zinc-900">
+                    <div className="absolute inset-x-8 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-zinc-300 bg-zinc-200 dark:border-zinc-700 dark:bg-zinc-900">
                     </div>
                   </div>
                 </div>
@@ -207,17 +239,17 @@ function Home() {
 
               {/* Top Right Card - Domain-Specific Filtering */}
               <div className="relative max-lg:row-start-1 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
-                <div className="absolute inset-px rounded-lg bg-zinc-900 max-lg:rounded-t-[2rem]" />
+                <div className="absolute inset-px rounded-lg  bg-zinc-200 dark:bg-zinc-900 max-lg:rounded-t-[2rem]" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                   <div className="px-7 pt-7 pb-0
                                 sm:px-7 sm:pt-7 sm:pb-0
                                 md:px-8 md:pt-8 md:pb-0
                                 lg:px-10 lg:pt-10 lg:pb-0">
-                    <p className="text-lg/8 mt-2 font-medium tracking-tight text-white max-lg:text-center
+                    <p className="text-lg/8 mt-2 font-medium tracking-tight text-zinc-900 dark:text-white max-lg:text-center
                                 sm:text-lg/8
                                 md:text-lg/8
                                 lg:text-lg/8">Domain-Specific Filtering</p>
-                    <p className="text-sm/6 mt-2 max-w-lg text-zinc-400 max-lg:text-center
+                    <p className="text-sm/6 mt-2 max-w-lg dark:text-zinc-400 max-lg:text-center
                                 sm:text-sm/6
                                 md:text-sm/6
                                 lg:text-sm/6">
@@ -237,11 +269,11 @@ function Home() {
 
               {/* Bottom Right Card - Metadata & Search */}
               <div className="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
-                <div className="absolute inset-px rounded-lg bg-zinc-900" />
+                <div className="absolute inset-px rounded-lg  bg-zinc-200 dark:bg-zinc-900" />
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)]">
                   <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                    <p className="mt-2 text-lg font-medium tracking-tight text-white max-lg:text-center">Metadata &amp; Search</p>
-                    <p className="mt-2 max-w-lg text-sm/6 text-zinc-400 max-lg:text-center">
+                    <p className="mt-2 text-lg font-medium tracking-tight text-zinc-900 dark:text-white max-lg:text-center">Metadata &amp; Search</p>
+                    <p className="mt-2 max-w-lg text-sm/6 dark:text-zinc-400 max-lg:text-center">
                       Rich metadata, effective dates, compliance deadlines, and advanced search capabilities.
                     </p>
                   </div>
@@ -258,29 +290,35 @@ function Home() {
 
               {/* Large Right Card - Audit-Ready Exports */}
               <div className="relative lg:row-span-2 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl will-change-transform">
-                <div className="absolute inset-px rounded-lg bg-zinc-900 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]" />
+                <div className="absolute inset-px rounded-lg bg-zinc-200 dark:bg-zinc-900 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]" />
+
                 <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(1rem+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
                   <div className="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                    <p className="mt-2 text-lg font-medium tracking-tight text-white max-lg:text-center">Audit-Ready Exports</p>
-                    <p className="mt-2 max-w-lg text-sm/6 text-zinc-400 max-lg:text-center">
+                    <p className="mt-2 text-lg font-medium tracking-tight text-zinc-900 dark:text-white max-lg:text-center">
+                      Audit-Ready Exports
+                    </p>
+                    <p className="mt-2 max-w-lg text-sm/6 dark:text-zinc-400 max-lg:text-center">
                       Exportable reports, version history, and full compliance documentation trails.
                     </p>
                   </div>
+
                   <div className="relative min-h-[200px] w-full grow">
-                    <div className="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-zinc-900/60 outline outline-white/10">
-                      <div className="flex bg-zinc-900 outline outline-white/5">
-                        <div className="-mb-px flex text-sm/6 font-medium text-zinc-400">
-                          <div className="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">
-                            Compliance Report.pdf
-                          </div>
-                          <div className="border-r border-zinc-600/10 px-4 py-2">Audit Trail.csv</div>
+                    <div className="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-zinc-300/60 dark:bg-zinc-900/60 outline outline-zinc-900/10 dark:outline-white/10">
+                      <div className="flex bg-zinc-100 dark:bg-zinc-900 outline outline-zinc-900/10 dark:outline-white/10">
+                        <div className="border-r border-b border-b-zinc-800/20 border-r-zinc-800/20 dark:border-r-white/10 bg-zinc-100/60 dark:bg-white/5 px-4 py-2 text-zinc-900 dark:text-white">
+                          Compliance Report.pdf
+                        </div>
+                        <div className="border-r bg-zinc-200/60 dark:bg-zinc-600/60 border-zinc-300 dark:border-zinc-600/10 text-zinc-900 dark:text-white px-4 py-2">
+                          Audit Trail.csv
                         </div>
                       </div>
                       <div className="px-6 pt-6 pb-14"></div>
                     </div>
                   </div>
                 </div>
-                <div className="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]" />
+
+                {/* Outer subtle highlight / outline layer */}
+                <div className="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-zinc-900/10 dark:outline-white/10 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]" />
               </div>
 
             </div>
@@ -335,14 +373,14 @@ function Home() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-24 bg-zinc-950 text-white">
+        <section id="contact" className="py-24 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white">
           <div className="max-w-2xl mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-semibold mb-4
                             sm:text-3xl
                             md:text-4xl
                             lg:text-4xl">Ready to simplify regulatory compliance?</h2>
-              <p className="text-base/7 text-zinc-400
+              <p className="text-base/7  text-zinc-600 dark:text-zinc-400
                             sm:text-base/7
                             md:text-lg/8
                             lg:text-lg/8">
@@ -350,48 +388,48 @@ function Home() {
               </p>
             </div>
 
-            <div className="bg-zinc-900 rounded-3xl p-10 md:p-12">
+            <div className="bg-zinc-200 dark:bg-zinc-900 rounded-3xl p-10 md:p-12">
               <form className="space-y-8">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm text-zinc-400 mb-2">Full Name</label>
+                    <label className="block text-sm text-zinc-900 dark:text-zinc-400 mb-2">Full Name</label>
                     <input
                       type="text"
-                      className="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-blue-600 transition-colors"
                       placeholder="John Smith"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-zinc-400 mb-2">Work Email</label>
+                    <label className="block text-sm text-zinc-900 dark:text-zinc-400 mb-2">Work Email</label>
                     <input
                       type="email"
-                      className="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-blue-600 transition-colors"
                       placeholder="john@company.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-zinc-400 mb-2">Company Name</label>
+                  <label className="block text-sm text-zinc-900 dark:text-zinc-400 mb-2">Company Name</label>
                   <input
                     type="text"
-                    className="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-blue-600 transition-colors"
+                    className="w-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-blue-600 transition-colors"
                     placeholder="Acme Financial"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-zinc-400 mb-2">Message / Interest</label>
+                  <label className="block text-sm text-zinc-900 dark:text-zinc-400 mb-2">Message / Interest</label>
                   <textarea
                     rows={5}
-                    className="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-5 py-4 focus:outline-none focus:border-blue-600 transition-colors resize-y min-h-[120px]"
+                    className="w-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-700 rounded-3xl px-5 py-4 focus:outline-none focus:border-blue-600 transition-colors resize-y min-h-[120px]"
                     placeholder="Tell us about your compliance challenges or schedule a demo..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-white text-zinc-950 font-medium py-4 rounded-2xl hover:bg-zinc-100 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-zinc-800 dark:bg-white text-zinc-100 dark:text-zinc-950 font-medium py-4 rounded-2xl hover:bg-zinc-500 transition-colors flex items-center justify-center gap-2"
                 >
                   Request a Demo
                   <span className="text-lg">→</span>
@@ -407,7 +445,7 @@ function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-zinc-950 text-zinc-500 py-12">
+      <footer className="dark:bg-zinc-950 dark:text-zinc-500 py-12">
         <div className="max-w-6xl mx-auto px-6 text-center">
           © 2026 LexApp. All rights reserved.
         </div>

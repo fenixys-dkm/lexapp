@@ -7,6 +7,7 @@ import ForgotPasswordModal from './ForgotPasswordModal';
 import { useAuth } from '../context/AuthContext';
 import { getInitials } from '../utils/getInitials';
 import { toast } from 'react-toastify';
+import { Sun, Moon } from 'lucide-react';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -159,6 +160,18 @@ export default function Navbar() {
                   </button>
                 </>
               )}
+              {/* Dark Mode Toggle - always visible */}
+                <button
+                  onClick={toggleDarkMode}
+                  className="p-2.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                  title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+                >
+                  {darkMode ? (
+                    <Sun size={20} className="text-amber-500" />
+                  ) : (
+                    <Moon size={20} className="text-zinc-700 dark:text-zinc-300" />
+                  )}
+                </button>
             </div>
           </div>
 
@@ -247,7 +260,7 @@ export default function Navbar() {
           setShowLoginModal(true);
         }}
       />
-      
+
     </nav>
   );
 }
