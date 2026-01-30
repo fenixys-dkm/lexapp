@@ -39,6 +39,10 @@ def create_app(config_class='app.config.Config'): # Application factory
     from .blueprints.legal_domains import legal_domains_bp
     app.register_blueprint(legal_domains_bp, url_prefix='/api/legal-domains')
 
+    from .blueprints.legislation import legislation_bp
+    app.register_blueprint(legislation_bp, url_prefix='/api/legislation')
+    
+
     # === CLEANER SEEDING LOGIC ===
     with app.app_context():
         from .models import User
