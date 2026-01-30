@@ -5,7 +5,7 @@ export default function LegislationHub() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-3xl font-semibold tracking-tighter">Legislation Hub</h2>
+          <h2 className="text-3xl font-semibold tracking-tighter dark:text-zinc-300">Legislation Hub</h2>
           <p className="text-zinc-600 dark:text-zinc-400">Browse and search official legislation</p>
         </div>
         <div className="relative w-96">

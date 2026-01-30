@@ -69,13 +69,13 @@ export default function LegalDomain() {
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-${domain.color}-100 dark:bg-${domain.color}-950`}>
                 <Icon size={32} className={`text-${domain.color}-600`} />
               </div>
-              <h3 className="font-semibold text-xl mb-1">{domain.title}</h3>
+              <h3 className="font-semibold text-xl mb-1 dark:text-zinc-300">{domain.title}</h3>
               <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4">{domain.description}</p>
               <div className="flex items-center justify-between">
-                <div className="text-xs font-medium bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full">
+                <div className="text-xs font-medium bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full dark:text-zinc-400">
                   {domain.count} regulations
                 </div>
-                <div className="text-navy text-xs font-medium group-hover:underline">Explore →</div>
+                <div className="text-navy dark:text-zinc-400 text-xs font-medium group-hover:underline">Explore →</div>
               </div>
             </div>
           );

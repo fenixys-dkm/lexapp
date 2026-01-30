@@ -45,10 +45,10 @@ export default function Notifications() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-3xl font-semibold tracking-tighter">Notifications</h2>
+          <h2 className="text-3xl font-semibold tracking-tighter dark:text-zinc-300">Notifications</h2>
           <p className="text-zinc-600 dark:text-zinc-400">Stay updated on regulatory changes</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-sm">
+        <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-sm dark:text-zinc-400">
           <Check size={18} />
           Mark all as read
         </button>
@@ -62,8 +62,8 @@ export default function Notifications() {
             onClick={() => setActiveTab(tab)}
             className={`px-6 py-3 text-sm font-medium rounded-t-2xl transition-colors capitalize
               ${activeTab === tab 
-                ? 'bg-white dark:bg-zinc-900 border border-b-0 border-zinc-200 dark:border-zinc-800' 
-                : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
+                ? 'bg-white dark:bg-zinc-900 border border-b-0 border-zinc-200 dark:border-zinc-800 dark:text-zinc-300' 
+                : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
           >
             {tab}
           </button>
@@ -75,22 +75,22 @@ export default function Notifications() {
         {filteredNotifications.map((notif) => {
           const Icon = notif.icon;
           return (
-            <div key={notif.id} className={`flex gap-4 p-5 rounded-3xl border ${notif.read ? 'border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900' : 'border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/50'}`}>
-              <div className={`w-11 h-11 rounded-2xl flex-shrink-0 flex items-center justify-center ${notif.type === 'urgent' ? 'bg-red-100 dark:bg-red-950' : 'bg-zinc-100 dark:bg-zinc-800'}`}>
+            <div key={notif.id} className={`flex gap-4 p-5 rounded-3xl border ${notif.read ? 'border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900' : 'border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/50 dark:text-zinc-300'}`}>
+              <div className={`w-11 h-11 rounded-2xl flex-shrink-0 flex items-center justify-center  ${notif.type === 'urgent' ? 'bg-red-100 dark:bg-red-950' : 'bg-zinc-100 dark:bg-zinc-800 '}`}>
                 <Icon size={24} className={notif.type === 'urgent' ? 'text-red-600' : 'text-zinc-600 dark:text-zinc-400'} />
               </div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <h3 className="font-medium">{notif.title}</h3>
-                  <span className="text-xs text-zinc-500 whitespace-nowrap">{notif.time}</span>
+                  <h3 className="font-medium dark:text-zinc-300">{notif.title}</h3>
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400  whitespace-nowrap">{notif.time}</span>
                 </div>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">{notif.message}</p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1 ">{notif.message}</p>
                 <div className="mt-3 flex gap-3">
-                  <button className="text-xs px-3 py-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl hover:bg-zinc-50">
+                  <button className="text-xs px-3 py-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl hover:bg-zinc-50 dark:text-zinc-300">
                     View details
                   </button>
                   {!notif.read && (
-                    <button className="text-xs px-3 py-1 text-emerald-600 hover:underline">Mark as read</button>
+                    <button className="text-xs px-3 py-1 text-emerald-600 dark:text-emerald-700 hover:underline">Mark as read</button>
                   )}
                 </div>
               </div>

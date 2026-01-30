@@ -48,7 +48,7 @@ export default function DashboardHome() {
             </div>
             <div>
               <div className="text-sm font-medium text-zinc-500 dark:text-zinc-400">New Regulations</div>
-              <div className="text-4xl font-semibold mt-1">7</div>
+              <div className="text-4xl font-semibold mt-1 dark:text-zinc-300">7</div>
             </div>
           </div>
           <div className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
@@ -83,22 +83,22 @@ export default function DashboardHome() {
       <div className="mt-12">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-lg">Recent Activity</h3>
-          <span className="text-xs text-zinc-500">Last 7 days</span>
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">Last 7 days</span>
         </div>
         <div className="bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-3xl p-6 text-sm">
           <div className="space-y-4">
             <div className="flex gap-4">
               <div className="w-2 h-2 mt-2 bg-emerald-500 rounded-full"></div>
-              <div>
+              <div className="dark:text-zinc-300">
                 <div>MiFID II - RTS 28 reporting obligation updated</div>
-                <div className="text-zinc-500 text-xs mt-0.5">2 hours ago</div>
+                <div className="text-zinc-500 dark:text-zinc-400 text-xs mt-0.5">2 hours ago</div>
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="w-2 h-2 mt-2 bg-amber-500 rounded-full"></div>
-              <div>
+              <div className="w-2 h-2 mt-2 bg-amber-500  rounded-full"></div>
+              <div className="dark:text-zinc-300">
                 <div>DORA - Digital Operational Resilience Act deadline approaching</div>
-                <div className="text-zinc-500 text-xs mt-0.5">Yesterday</div>
+                <div className="text-zinc-500 dark:text-zinc-400 text-xs mt-0.5">Yesterday</div>
               </div>
             </div>
           </div>

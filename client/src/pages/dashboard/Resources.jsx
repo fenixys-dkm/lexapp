@@ -56,7 +56,7 @@ export default function Resources() {
     <div>
       <div className="flex justify-between items-end mb-8">
         <div>
-          <h2 className="text-3xl font-semibold tracking-tighter">Resources</h2>
+          <h2 className="text-3xl font-semibold tracking-tighter dark:text-zinc-300">Resources</h2>
           <p className="text-zinc-600 dark:text-zinc-400">Guides, templates, and training materials</p>
         </div>
         <div className="relative w-80">
@@ -83,14 +83,14 @@ export default function Resources() {
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      <div className="font-medium">{resource.title}</div>
+                      <div className="font-medium dark:text-zinc-300">{resource.title}</div>
                       <div className="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">{resource.category} • {resource.type}</div>
                     </div>
-                    <div className="text-xs text-zinc-500 whitespace-nowrap">{resource.updated}</div>
+                    <div className="text-xs text-zinc-500 dark:text-zinc-400 whitespace-nowrap">{resource.updated}</div>
                   </div>
 
                   <div className="mt-4 flex items-center gap-3">
-                    <div className="text-xs bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full">
+                    <div className="text-xs bg-zinc-100 dark:bg-zinc-800 px-3 py-1 rounded-full dark:text-zinc-400">
                       {resource.format}
                     </div>
                     <div className="text-xs text-zinc-500">{resource.size}</div>
@@ -101,7 +101,7 @@ export default function Resources() {
                       <Download size={18} />
                       Download
                     </button>
-                    <button className="px-4 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 rounded-2xl hover:bg-zinc-50 dark:hover:bg-zinc-800">
+                    <button className="px-4 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 rounded-2xl hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:text-zinc-400">
                       <ExternalLink size={18} />
                     </button>
                   </div>
