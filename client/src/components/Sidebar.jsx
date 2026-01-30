@@ -17,10 +17,10 @@ export default function Sidebar({ isOpen, onClose }) {
   const navItems = [
     { name: 'Dashboard', icon: Home, path: '/dashboard' },
     { name: 'Legal Domain', icon: Layers, path: '/dashboard/legal_domain' },
+    { name: 'Legislation Hub', icon: Search, path: '/dashboard/legislation_hub' },
     { name: 'Favorites', icon: Heart, path: '/dashboard/favorites' },
     { name: 'Notifications', icon: Bell, path: '/dashboard/notifications' },
     { name: 'Resources', icon: BookOpen, path: '/dashboard/resources' },
-    { name: 'Legislation Hub', icon: Search, path: '/dashboard/legislation_hub' },
     { name: 'Analytics', icon: BarChart3, path: '/dashboard/analytics' },
     { name: 'Management', icon: Pen, path: '/dashboard/management' },
     { name: 'Settings', icon: Settings, path: '/dashboard/settings' },

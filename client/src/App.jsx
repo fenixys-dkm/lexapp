@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Dashboard sub-pages
 import DashboardHome from './pages/dashboard/DashboardHome';
@@ -48,6 +50,20 @@ function App() {
       <LoginModal />
       <SignUpModal />
       <ForgotPasswordModal />
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"           // or "colored", or "dark"
+        // limit={3}            // optional: max simultaneous toasts
+      />
     </Router>
   );
 }

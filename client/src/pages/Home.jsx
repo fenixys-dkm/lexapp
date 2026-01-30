@@ -1,7 +1,6 @@
 // src/pages/Home.jsx
 import { useState } from 'react'; // if you need any state
 import Navbar from '../components/Navbar';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const people = [
@@ -451,18 +450,6 @@ function Home() {
         </div>
       </footer>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </>
   );
 }
