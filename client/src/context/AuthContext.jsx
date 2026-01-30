@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
-      api.get('/me')
+      api.get('/api/auth/me')
         .then((res) => {
           setUser(res.data);
           setIsAuthenticated(true);
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const register = async (name, email, company = '', password) => {
-    const res = await api.post('/register', {
+    const res = await api.post('/api/auth/register', {
       name,
       email,
       company,
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    const res = await api.post('/login', { email, password });
+    const res = await api.post('/api/auth/login', { email, password });
     const { access_token, user } = res.data;
 
     localStorage.setItem('access_token', access_token);

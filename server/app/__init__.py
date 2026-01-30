@@ -35,24 +35,29 @@ def create_app(config_class='app.config.Config'): # Application factory
     from .blueprints.auth import auth_bp
     app.register_blueprint(auth_bp, url_prefix='/api/auth')# Register auth blueprint
 
-    # Inside create_app(), replace the seeding part with:
+    # Add this:
+    from .blueprints.legal_domains import legal_domains_bp
+    app.register_blueprint(legal_domains_bp, url_prefix='/api/legal-domains')
+
+    # === CLEANER SEEDING LOGIC ===
     with app.app_context():
         from .models import User
         from .models.legal_domain import LegalDomain, seed_standard_domains
 
-        # Only try to seed if the table actually exists
+        # Only attempt seeding if the table exists (safe during migrations)
         inspector = inspect(db.engine)
         if 'legal_domain' in inspector.get_table_names():
-            if not LegalDomain.query.first():
-                print("🌱 Seeding standard legal domains...")
+            # Check how many standard domains exist
+            existing_count = LegalDomain.query.filter_by(is_standard=True).count()
+            
+            if existing_count == 0:
+                print("🌱 Seeding standard legal domains for the first time...")
                 seed_standard_domains()
-            else:
-                # Optional: check for missing standards
-                existing_slugs = {d.slug for d in LegalDomain.query.filter_by(is_standard=True).all()}
-                if len(existing_slugs) < 6:
-                    print("🌱 Some standard domains missing — re-seeding...")
-                    seed_standard_domains()
+            elif existing_count < 6:
+                print("🌱 Some standard domains missing — re-seeding missing ones...")
+                seed_standard_domains()
+            # else: do nothing (your manual changes are safe)
         else:
-            print("ℹ️  legal_domain table does not exist yet. Run 'flask db upgrade' first.")
+            print("ℹ️ legal_domain table not created yet. Run 'flask db upgrade' first.")
 
     return app
